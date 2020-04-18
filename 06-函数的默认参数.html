@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>函数的默认参数</title>
+	</head>
+	<body>
+		<script>
+			/*函数可以直接传递参数*/
+			function show(a,b) {
+				b = b || 'wxj';  //若b没有传参，那么默认为wxj
+				console.log(a,b);
+			}
+			show('welcome','牧马人');
+			show('welcome');
+			
+			function show1(a='欢迎',b='mmr') {
+				console.log(a,b);
+			}
+			show1('welcome','牧马人');  //welcome 牧马人
+			show1('welcome'); //welcome mmr
+			show1();  //欢迎 mmr
+			
+			function foo({x = 0, y = 0}={}){
+				console.log(x,y);
+			}
+			foo();
+			
+			/*函数的变化*/
+			/*函数参数默认已经定义好了，不能再使用let const声明   可以使用var*/
+			function fn(a=18){
+				var a = 10;
+				console.log(a);
+			}
+			fn();  //会报错
+		</script>
+	</body>
+</html>

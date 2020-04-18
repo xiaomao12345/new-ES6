@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>generator</title>
+	</head>
+	<body>
+		<!--也是一个函数  生成器    解决异步深度嵌套的问题-->
+		<!--使用：配合yield使用    function和函数名字中间需要加*
+			function * show(){
+				yield
+			}
+			//调用：g1.next()
+		-->
+		<!--for..of..可以自动遍历generator，但return的内容不会被遍历出来-->
+		<!--generator可以配合解构赋值   但是只能结构yield的内容-->
+		<!--generator可以配合扩展运算符使用-->
+		<!--Array.from(gen())可以将generator对象转化成数组-->
+		<!--generator配合promise使用-->
+		<!--异步：不连续，上一个操作没有执行完，下一个操作照样开始-->
+		<!--同步：连续执行，上一个操作没有执行完，下一个操作没法开始-->
+		<!--解决异步：回调函数/时间兼听/发布订阅/Promise对象-->
+		<script type="text/html">
+			function * gen(){
+				yield 'welcome';
+				yield 'to';
+				return '牧马人'
+			}
+			let g1 = gen();
+			//console.log(g1);  //返回一个对象
+			console.log(g1.next());  //{value: "welcome", done: false}  false表示没完成
+			console.log(g1.next());  //{value: "to", done: false}
+			console.log(g1.next());  //{value: "牧马人", done: true} true完成了
+			console.log(g1.next());  //{value: undefined, done: true}
+		</script>
+		<script id="for..of.." type="text/html">
+			function * gen(){
+				yield 'welcome';
+				yield 'to';
+				return '牧马人'
+			}
+			let g1 = gen();
+			for(let key of g1){
+				console.log(key);
+			}
+		</script>
+		<script id="解构赋值" type="text/html">
+			function * gen(){
+				yield 'welcome';
+				yield 'to';
+				yield '521';
+				return '牧马人'
+			}
+			/*let [a,b,c] = gen();
+			console.log(a,b,c);  //welcome to 521*/
+			
+		</script>
+		<script id="扩展运算符" type="text/html">
+			function * gen(){
+				yield 'welcome';
+				yield 'to';
+				yield '521';
+				return '牧马人'
+			}
+			console.log(...gen());   //welcome to 521
+			
+			let [a,...b] = gen();
+			console.log(a,b);  //welcome (2) ["to", "521"]
+			
+			//转成数组
+			console.log(Array.from(gen()));  //["welcome", "to", "521"]
+		</script>
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+		<script>
+			//generator结合axios实现数据请求
+			
+		</script>
+	</body>
+</html>

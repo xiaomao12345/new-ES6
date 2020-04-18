@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>async</title>
+	</head>
+	<body>
+		<!--async语法：
+			async function fn() { //表示异步，这个函数里面有异步任务
+				let result = await xxxx ; //表示后面结果需要等待
+			}
+		-->
+	    <!--async特点：
+	    	1.await只能放在async函数里面
+	    	2.相比于generator语义化更强
+	    	3.await后面可以是promise对象，也可以是数字，字符串，布尔值
+	    	4.async函数返回的是一个promise对象
+	    	5.只要await语句后面Promise状态变成reject，那么整个async函数会终端执行
+	    -->
+	    <!--如何解决async函数中抛出错误，影响后续代码
+	    	1.try{
+	    		
+	    	}catch(e){
+	    		
+	    	}
+	    	2.promise本身的catch也可以捕获错误
+	    -->
+	    <!--只要有await出现都要try{}catch{}掉-->
+		<script type="text/html">
+			//成功
+			async function fn() { 
+				return 'welcome';
+			}
+			//console.log(fn()); //返回一个promise对象
+			fn().then(res => {
+				console.log(res);  //welcome
+			})
+			
+			//失败
+			async function foo() { 
+				throw new Error('Error出错了');
+			}
+			//console.log(fn()); //返回一个promise对象
+			/*foo().then(res => {
+				console.log(res);  //welcome
+			},err =>{
+				console.log(err);
+			})*/
+			foo().then(res => {
+				console.log(res);  //welcome
+			}).catch(err => {
+				console.log(err);
+			})
+		</script>
+		<script type="text/html">
+			async function fn(){
+				await Promise.reject('出现问题了');
+				let a = await Promise.resolve('success');
+				consoloe.log(a);
+			}
+			fn().then(res => {
+				console.log(res);  
+			}).catch(err => {
+				console.log(err);  //出现问题了
+			})
+		</script>
+		<script id="try..catch..捕获错误" type="text/html">
+			async function fn(){
+				try{
+					await Promise.reject('出现问题了');
+				}catch(e){}
+				
+				let a = await Promise.resolve('success');
+				console.log(a);  //success
+			}
+			fn().then(res => {
+				console.log(res);   //undefined 没有设置返回值
+			});
+		</script>
+		<script id="捕获错误">
+			//利用promise对象本身的catch捕获错误
+			async function fn(){
+				await Promise.reject('出现问题了').catch(err => {
+					console.log(err);
+				});
+				let a = await Promise.resolve('success');
+				console.log(a);  //success
+			}
+			fn().then(res => {
+				console.log(res);   //undefined 没有设置返回值
+			});
+		</script>
+	</body>
+</html>

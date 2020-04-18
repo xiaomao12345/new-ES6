@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>类</title>
+	</head>
+	<body>
+		<!--面向对象：类-->
+		<!--ES5矫正this:
+			1.fn.call(this指向谁，args1,args2....)
+			2.fn.apply(this指向谁，[args1,args2....])
+			3.fn.bind()
+		-->
+		<!--注意：
+			1.ES6中的类没有提升的功能，ES5中的函数可以提升
+			2.
+		-->
+		<!--class里面取值函数(getter),存值函数(setter)-->
+		<!--静态方法：就是类身上的方法-->
+		<script id="ES5之前的类" type="text/html" >
+			function Person(name,age) {
+				this.name = name;
+				this.age = age;
+			}
+			/*Person.prototype.showName = function(){
+				return `名字为:${this.name}`;
+			};
+			Person.prototype.showAge = function(){
+				return `年龄为:${this.age}`;
+			};*/
+			
+			/*json对象*/
+			Object.assign(Person.prototype, {
+				showName(){
+					return `名字为:${this.name}`;
+				},
+				showAge(){
+					return `年龄为:${this.age}`;
+				}
+			});
+			let p1 = new Person('wxj',20);
+			console.log(p1.showName(),p1.showAge());
+		</script>
+		<script id="ES6中的类" type="text/html">
+			//Person仅为名字，大小写无所谓，但尽量大写，规范形式
+			class Person{
+				//属性
+				constructor(name,age) { //构造方法(函数) ，调用new，自动执行
+					//console.log(`构造函数执行了,${name},${age}`);
+					this.name = name;
+					this.age = age;
+					
+				}
+				//方法
+				showName(){
+					return `名字为:${this.name}`;
+				}
+				showAge(){
+					return `年龄为:${this.age}`;
+				}
+			}
+			//console.log(typeof Person); //function
+			let p1 = new Person('wxj',20);
+			console.log(p1.showName(),p1.showAge());
+			//名字为:wxj 年龄为:20
+			
+			//赋值的形式
+			const person = class{
+				
+			}
+		</script>
+		<script type="text/html">
+			let aaa = 'strive';
+			class Person{
+				//属性
+				constructor(name,age) { //构造方法(函数) ，调用new，自动执行
+					//console.log(`构造函数执行了,${name},${age}`);
+					this.name = name;
+					this.age = age;
+					
+				}
+				//方法
+				showName(){
+					return `名字为:${this.name}`;
+				}
+				showAge(){
+					return `年龄为:${this.age}`;
+				}
+				[aaa](){
+					return '随便了';
+				}
+			}
+			
+			let p1 = new Person('wxj',20);
+			//console.log(p1.aaa());  //随便了
+			console.log(p1.strive());  //随便了
+			console.log(p1[aaa]());  //随便了
+		</script>
+		<script id="this问题" type="text/html">
+			class Person{
+				constructor() {
+					this.name = 'wxj';
+					this.showName = this.showName.bind(this);  //矫正this
+				}
+				showName() {
+					console.log('this:',this);
+					return `名字为:${this.name}`;
+				}
+			}
+			let p1 = new Person();
+			let {showName} = p1;
+			console.log(showName());
+		</script>
+		<script id="getter setter" type="text/html">
+			class Person{
+				constructor() {
+					
+				}
+				//取值
+				get aaa() {
+					return 'aaa的属性';
+				}
+				//设置
+				set aaa(val) {
+					console.log(`设置aaa属性,值为:${val}`);
+				}
+			}
+			let p1 = new Person();
+			p1.aaa = '123';
+			console.log(p1.aaa);
+		</script>
+		<script>
+			class Person{
+				constructor(){
+					
+				}
+				showName(){
+					return '这是showName方法';
+				}
+				static aaa(){
+					return '这是静态方法';
+				}
+			}
+			let p1 = new Person();
+			console.log(p1.showName());
+			console.log(Person.aaa());
+		</script>
+	</body>
+</html>

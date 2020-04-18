@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>ES6数组新增</title>
+	</head>
+	<body>
+		<!--1.for...of...循环:
+			arr.keys()数组的下标 索引
+			arr.entries()数组的某一项
+			arr.values()数组的值
+			
+			2.Array.from:将类数组对象 转化为数组
+			3.Array.of:将一组值 转化为数组
+			4.Array.find:找到第一个符合条件的数组成员并返回该值，若没有找到返回undefined
+			5.Array.findIndex:找到第一个符合条件的数组成员并返回该数组成员所在的位置，若没有找到返回-1
+			6.arr.fill(要填充的东西，要填充的开始位置，要填充的结束位置)：填充
+		-->
+		<ul>
+			<li>1111111111</li>
+			<li>2222222222</li>
+			<li>3333333333</li>
+			<li>4444444444</li>
+		</ul>
+		<script id="for..of.." type="text/html">
+			let arr = ['tomato','orange','apple','banana'];
+			//遍历值
+			for(let val of arr){
+				console.log(val); //tomato orange apple banana
+			}
+			//遍历索引
+			for(let index of arr.keys()){
+				console.log(index); //0 1 2 3
+			}
+			//值和索引一起遍历
+			for(let item of arr.entries()){
+				console.log(item); //[0, "tomato"] [1, "orange"] [2, "apple"] [3, "banana"]
+			}
+			for(let [key,val] of arr.entries()){
+				console.log(key,val);  //0 "tomato" 1 "orange" 2 "apple" 3 "banana"
+			}
+			for(let val of arr.values()){
+				console.log(val); //tomato orange apple banana
+			}
+		</script>
+		<script id="扩展运算符" type="text/html">
+			window.onload = function () {
+				let ul = document.getElementsByTagName('ul')[0];
+				let lis = ul.getElementsByTagName('li');
+				console.log(lis);
+				let arrLi = [...lis];
+				arrLi.pop();
+				console.log(arrLi); //[li, li, li]
+			}
+		</script>
+		<script id="Array.from()" type="text/html">
+			window.onload = function () {
+				let ul = document.getElementsByTagName('ul')[0];
+				let lis = ul.getElementsByTagName('li');
+				console.log(lis);
+				let arrLi = Array.from(lis);
+				console.log(arrLi); //[li, li, li, li]
+				arrLi.pop();
+				console.log(arrLi); //[li, li, li]
+				
+				let arr = [].slice.call(lis);
+				console.log(arr);// [li, li, li, li] es5之前的方法
+				
+				show(1,2,3,4,5);// [1, 2, 3, 4, 5]
+				
+				let str = 'strive';
+				
+				let newArr = Array.from(str); //["s", "t", "r", "i", "v", "e"]
+				console.log(newArr);
+				
+				let json = {
+					0:'orange',
+					1:'apple',
+					2:'banana',
+					length:3
+				};
+				let str1 = Array.from(json); //把json对象转化为数组的时候，json对象里面必须有length
+				console.log(str1);// ["orange", "apple", "banana"]
+			}
+			function show(){
+				let args = Array.from(arguments);
+				//将对象转化为数组之后就可以使用数组的方法添加和删除一些元素了
+				console.log(args);
+			}
+			
+		</script>
+		<script id="arr.of()" type="text/html">
+			let arr = Array.of('banana','orange','apple');
+			console.log(arr);//["banana", "orange", "apple"]
+		</script>
+		<script id="Array.find" type="text/html">
+			let arr = [1,5,11,234,415,12];
+			let res = arr.find((val,index,arr) => {
+				//return val > 100;//234
+				return val > 1000;//undefined
+			});
+			console.log(res);  
+		</script>
+		<script id="Array.findIndex" type="text/html">
+			let arr = [1,5,11,234,415,12];
+			let res = arr.findIndex((val,index,arr) => {
+				//return val > 100;  //3
+				return val > 1000;  //-1
+			});
+			console.log(res); 
+		</script>
+		<script id="arr.fill" type="text/html">
+			let arr = new Array(10);
+			console.log(arr);// [empty × 10]
+			/*let newArr = arr.fill('默认值');
+			console.log(newArr);*/
+			// ["默认值", "默认值", "默认值", "默认值", "默认值", "默认值", "默认值", "默认值", "默认值", "默认值"]
+			let newArr1 = arr.fill('默认值',1,3);
+			console.log(newArr1);//[empty, "默认值", "默认值", empty × 7]
+		</script>
+		<script id="arr.includes">
+			let arr = ['orange','banana','tomato'];
+			let res = arr.includes('orange');
+			console.log(res);  //true
+			let res1 = arr.includes('apple');
+			console.log(res1);    //false
+		</script>
+	</body>
+</html>

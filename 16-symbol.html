@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>symbol</title>
+	</head>
+	<body>
+		<!--ES6新增数据类型-->
+		<!--typeof检测出的数据类型：undefined Object string number function boolean symbol-->
+		<!--注意：
+			1.定义的时候不能new
+			2.返回一个唯一的值  坊间传说做一个key，定义一些唯一或者私有的东西
+			3.是一个单独的数据类型，基本数据类型
+			4.如果symbol作为key，用for..in..循环的时候不显示，为私有的
+		-->
+		<script>
+			//定义
+			let syml = Symbol('aaaa');
+			console.log(syml);//Symbol(aaaa)
+			console.log(typeof syml); //symbol
+			
+			let symbol = Symbol('wxj');
+			let json = {
+				a:'apple',
+				b:'orange',
+				[symbol]:'aaaa'
+			}
+			console.log(json[symbol]);  //aaaa
+			
+			for(let key in json){
+				console.log(key);  //a b
+			}
+		</script>
+	</body>
+</html>

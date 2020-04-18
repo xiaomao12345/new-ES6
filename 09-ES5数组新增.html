@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>数组</title>
+	</head>
+	<body>
+		<!--ES5新增:
+			 1.arr.forEach():和for一样,用来代替for循环 没有返回值
+			 2.arr.map():做数据交互特别有用   映射  
+			          正常情况下需要配合return使用，返回一个新数组，若没有return，则相当于forEach()
+			          平时用map一定要有返回值
+			 3.arr.filter():过滤，过滤一些不合格的元素,如果回调函数返回true，就留下来
+			 4.arr.some():类似于查找，数组里面某一个元素符合条件就返回true
+			 5.arr.every():类似于查找，数组里面所有的元素都符合条件就返回true
+			 //以上几个都可以传递两个参数，第一个为循环的回调函数，第二个参数为this的指向，可写可不写
+			 
+			 //接受四个参数(prev,cur,index,arr)前一个元素，当前元素，索引值，数组
+			 6.arr.reduce():从左往右   求数组的和 阶乘
+			 7.arr.reduceRight()从右往左
+		-->
+		<script id="forEach()" type="text/html">
+			//arr.forEach():和for一样,用来代替for循环 没有返回值
+			let arr = ['apple','orange','banana'];
+			/*arr.forEach(function(item,index,arr) {
+				console.log(item);  //item为数组的每一项
+				console.log(index);  //index为数组的索引值
+			});*/
+			
+			//箭头函数 但是箭头函数不可以重新定义this的指向，始终指向当前定义他的对象
+			arr.forEach((item,index,arr) => {
+				console.log(item,index,arr); 
+			});
+			
+		</script>
+		<script id="map()" type="text/html">
+		        /*arr.map():做数据交互特别有用   映射  
+			          正常情况下需要配合return使用，返回一个新数组，若没有return，则相当于forEach()
+			          平时用map一定要有返回值*/
+			/*var newArr = arr.map(function(item,index,arr) {
+				console.log(item,index,arr); 
+			})
+			console.log(newArr);  
+			// [undefined, undefined, undefined] 返回一个新数组，没有return则返回undefined*/
+			
+			/*var newArr = arr.map(function(item,index,arr) {
+				console.log(item,index,arr); 
+				return 1;
+			})
+			console.log(newArr);   //[1,1,1]*/
+			
+			
+			//整理数据  更改名字
+			let arr = [
+			   {title:'aaaaaa',read:100,hot:true},
+			   {title:'bbbbbbbbbbb',read:21,hot:true},
+			   {title:'cccccc',read:533,hot:true},
+			   {title:'dddddddddd',read:4444,hot:true},
+			   {title:'eeeeeeeeeeee',read:23,hot:true},
+			   {title:'fff',read:11,hot:true},
+			   {title:'ggggg',read:30,hot:true}
+			];
+			let newArr = arr.map(function(item,index,arr) {
+				let json = {};
+				json.t = `^_^${item.title}`;
+				json.r = item.read + 200;
+				json.hot = item.hot == true && '真棒！！';
+				return json;
+			})
+			console.log(newArr);
+		</script>
+		<script id="filter" type="text/html">
+			//arr.filter():过滤，过滤一些不合格的元素,如果回调函数返回true，就留下来
+			let arr = [
+			   {title:'aaaaaa',read:100,hot:true},
+			   {title:'bbbbbbbbbbb',read:21,hot:false},
+			   {title:'cccccc',read:533,hot:true},
+			   {title:'dddddddddd',read:4444,hot:false},
+			   {title:'eeeeeeeeeeee',read:23,hot:false},
+			   {title:'fff',read:11,hot:true},
+			   {title:'ggggg',read:30,hot:false}
+			];
+			let newArr = arr.filter(function(item,index,arr) {
+				return item.hot;  //返回hot为true的数据
+				return item.hot == false;  //返回hot为false的数据
+			});
+			console.log(newArr);
+		</script>
+		<script id="some() every()" type="text/html">
+		    /*arr.some():类似于查找，数组里面某一个元素符合条件就返回true*/
+		    /*arr.every():类似于查找，数组里面所有的元素都符合条件就返回true*/
+			let arr = ['apple','orange','banana'];
+			/*var newArr = arr.some(function(item,index,arr) {
+				return item == 'orange';
+			})
+			console.log(newArr);  //true*/
+			
+			function findInArray(arr,item){
+				return arr.some(function(val,index,arr) {
+					return val == item;
+				});
+			};
+			console.log(findInArray(arr,'orange2')); //false
+			
+			var arr1 = [1,2,3,4,5,6,7,8];
+			let newArr = arr1.every(function(val,index,arr){
+				return val%2 == 1;  //是否都为奇数
+			})
+			console.log(newArr); //false
+		</script>
+	    <script id="reduce()">
+	    	let arr = [1,2,3,4,5,6,7,8,9,10];
+	    	let newArr = arr.reduce(function(prev,cur,index,arr){
+	    		return prev+cur;  
+	    	})
+	    	console.log(newArr);//55
+	    	
+	    	let arr1 = [2,2,4];
+	    	let newArr1 = arr1.reduce(function(prev,cur,index,arr1){
+	    		//return Math.pow(prev,cur);  
+	    		return prev ** cur;
+	    	})
+	    	console.log(newArr1);//256
+	    	
+	    	console.log(Math.pow(2,3)); //8     求幂 2的3次方
+	    	console.log(2**3); //8   2017新增求幂的方法
+	    </script>
+	</body>
+</html>

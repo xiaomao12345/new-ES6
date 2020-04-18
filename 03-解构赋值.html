@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>解构赋值</title>
+	</head>
+	<body>
+		<script>
+			/*解构赋值：左右两边结构格式要保持一致  做数据交互
+			     解构的时候可以给默认值，当传过来的数据为null时，结果也为null
+			     利用解构赋值，可以很容易的将两个数的值相互交换
+			*/
+			/*let a = 1;
+			let b = 2;
+			let c = 3;
+			console.log(a,b,c);*/
+			
+			/*let arr = [1,2,3];
+			console.log(arr[0],arr[1],arr[2]);*/
+			
+			//格式
+			/*let [a,b,c] = [1,2,3];
+			console.log(a,b,c);*/
+			
+			//json数据
+			/*let json = {
+				name:'wxj',
+				age:20,
+				job:'码农'
+			};
+			let {name,age,job} = json;
+			console.log(name,age,job);
+			
+			//可以自定义别名
+			let {name:n,age:g,job:j} = json;
+			console.log(n,g,j);*/
+			
+			//可以自己给默认值，当后台没有给值得时候
+			/*let [a,b,c='暂无数据'] = ['aaaa','bbbbbbb'];
+			console.log(a,b,c); //aaaa bbbbbbb 暂无数据
+			
+			let [d,f,v='暂无数据'] = ['aaaa','bbbbbbb',undefined];
+			console.log(d,f,v); //aaaa bbbbbbb 
+			
+			let [s,k,l='暂无数据'] = ['aaaa','bbbbbbb',null];
+			console.log(s,k,l); //aaaa bbbbbbb null*/
+			
+			//交换两个数的值
+			let a = 1;
+			let b = 2;
+			[a,b] = [b,a];
+			console.log(a,b); //2 1
+			
+			//alert(top); //[object Window]
+			function getPos() {
+				return{
+					left:10,
+					top:20
+				}
+			}
+			let {left,top:t} = getPos(); //top在全局模式下指的是window，所以要重命名
+			console.log(left,t); //10 20
+			
+			function show({c,d='默认'}){
+				console.log(c,d);
+			}
+			show({
+				c:1
+				//d:2
+			})
+		</script>
+	</body>
+</html>

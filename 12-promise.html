@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>promise</title>
+	</head>
+	<body>
+		<!--promise:解决异步回调问题  有then和catch-->
+		<!--promise.resolve('aaaa'):将现有的东西，转化为一个promise对象，并且为resolve成功状态
+			等价于： new Promise(resolve => {
+				resolve('aaaa');
+			})
+		-->
+		<!--promise.reject('aa'):将现有的东西，转化为一个promise对象，并且为reject失败+状态
+			等价于： new Promise((resolve,reject) => {
+				reject('aaaa');
+			})
+		-->
+		<!--promise.all([p1,p2,p3]):将promise对象打包,放到一个数组里面，打包完还是promise对象
+			要求：必须确保所有的promise对象都为resolve状态，都是成功的状态
+		-->
+		<!--promise.race([p1,p2,p3]):和promise.all的用法一样，
+		          但是只要里面有一个promise对象为resolve状态就可以正常返回
+		-->
+		<script type="text/html">
+			//语法
+			/*new Promise(function(resolve,reject) {
+				//resolve  成功的时候调用
+				//reject  失败的时候调用
+			})*/
+			
+			let a = 120;
+			let promise = new Promise(function(resolve,reject) {
+				if (a == 10) {
+					resolve('成功');
+				} else{
+					reject('失败');
+				}
+			});
+			/*promise.then(res => {
+				console.log(res);  //成功
+			},err => {
+				console.log(err);   //失败
+			})
+			
+			//promise.catch()用来捕获错误
+			promise.catch(err => {
+				console.log(err);
+			})*/
+			
+			promise.then(res => {
+				console.log(res);
+			}).catch(err => {
+				console.log(err);
+			})
+			
+			let p1 = Promise.resolve('aaaa');
+			let p2 = Promise.resolve('bbbb');
+			let p3 = Promise.resolve('cccc');
+			Promise.all([p1,p2,p3]).then(res => {
+				console.log(res);  //["aaaa", "bbbb", "cccc"]
+				let [res1,res2,res3] = res;
+				console.log(res1,res2,res3);  //aaaa bbbb cccc
+			})
+			
+			let p4 = Promise.reject('dddd');
+			let p5 = Promise.reject('ffff');
+			let p6 = Promise.resolve('gggg');
+			Promise.race([p4,p5,p6]).then(res => {
+				console.log(res);  //["aaaa", "bbbb", "cccc"]
+			}).catch(err => {
+				console.log(err);
+			})
+			
+		</script>
+		<script>
+			//模拟用户登录，登陆成功即可获取用户信息
+			let status = 1;
+			let userLogin = (resolve,reject) => {
+				setTimeout( () => {
+					if (status == 1) {
+						resolve({data:'登陆成功',msg:'xxxxxxxx',token:'aaaaaaaaaaaa'});
+					} else{
+						reject('失败了');
+					}
+				},2000)
+			};
+			
+			let getUserInfo = (resolve,reject) => {
+				setTimeout( () => {
+					if (status == 1) {
+						resolve({data:'获取用户信息成功',msg:'xxxxxxxx',token:'aaaaaaaaaaaa'});
+					} else{
+						reject('失败了');
+					}
+				},1000)
+			};
+			new Promise(userLogin).then(res => {
+				console.log('用成功户登录');
+				return new Promise(getUserInfo);
+			}).then(res => {
+				console.log('获取用户信息成功');
+				console.log(res);
+			})
+		</script>
+	</body>
+</html>

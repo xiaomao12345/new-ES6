@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Reflect</title>
+	</head>
+	<body>
+		<!--Reflect:反射
+			Reflect.apply(调用的函数，this指向，参数数组)
+		-->
+		<!--通过Reflect对象身上直接拿到语言内部的东西-->
+		<!--Reflect.has(Object,'要检测的内容')
+			Reflect.deleteProperty(Object,'要删除的东西')
+		-->
+		<script>
+			console.log(Math.ceil(5.3)); //6
+			
+			let res = Reflect.apply(Math.ceil,null,[5.3]);
+			console.log(res);  //6
+			
+			
+			function show(...args){
+				console.log(this);
+				console.log(args);
+			}
+			show(1,2,3,4,5);
+			show.call('abc',[1,2,3,4,5]);  //call(this指向，参数)
+			show.apply('abcd',[1,2,3,4,5]);
+			Reflect.apply(show,'aaaa',[1,2,3,4,5]);
+		</script>
+	</body>
+</html>

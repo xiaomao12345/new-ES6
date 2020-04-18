@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>let定义变量</title>
+	</head>
+	<body>
+		<input type="button" value="aaaa" />
+		<input type="button" value="bbbb" />
+		<input type="button" value="cccc" />
+		<script type="text/html">
+			/* let特点：
+			 * 1.let不存在预解析  不存在变量提升
+			 * 2.不能重复定义变量（同一个作用域）
+			 * 3.for循环，for循环里面是父级作用域，里面又是一个*/
+			
+			
+			
+			/*for (var i = 0; i < 10; i++) {
+				
+			}
+			//alert(i); //10*/
+			
+			
+			/*var a = 10;
+			function fn() {
+				alert(a); //undefined  var = a存在变量提升
+				var a = 5;
+			}
+			fn(); */
+			
+			//let const 代表块级作用域
+			/*if(true) {
+				let a = 8;
+				console.log(a);  //8
+			}
+			console.log(a);  //undefined*/
+			
+	
+			/*let a = 10;
+			function fn() {
+				alert(a);  //TDZ开始  暂时性死区
+				let a = 5;   //TDZ结束  暂时性死区
+			}
+			fn();*/
+			
+			/*for (let i = 0; i < 10; i++) {
+				
+			}
+			alert(i); //undefined*/
+			
+			/*for (let i = 0; i < 3; i++) {
+				let i= 'abc';
+				console.log(i);  //输出三次abc  此时不属于重复定义 作用域不同
+			}*/
+			
+			/*var arr = [];
+			for (var i = 0;i<10; i++) {
+				arr[i] = function() {
+					console.log(i);
+				}
+			}
+			arr[5]();  //10*/
+			
+			/*var arr = [];
+			for (let i = 0;i<10; i++) {
+				arr[i] = function() {
+					console.log(i);
+				}
+			}
+			arr[5](); //5*/
+		</script>
+		<script>
+			window.onload = function() {
+				var aInput = document.getElementsByTagName('input');
+				for (let i = 0; i < aInput.length; i++) {
+					aInput[i].onclick = function() {
+						alert(i+1);
+					}
+				}
+			}
+		</script>
+	</body>
+</html>

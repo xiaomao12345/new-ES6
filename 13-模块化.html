@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>模块化</title>
+	</head>
+	<body>
+		<!--使用模块 type="module"
+			定义模块：export
+			引用模块：import
+			
+			可以起别名 用as   "b as banana" 但是前后两个文件定义和引用时名字必须相同
+			import './module/1.js';
+			import {b,c,d} from './module/1.js';
+			import {b as banana,c,d} from './module/1.js';
+			import * as modTwo from './module/1.js';
+			正常引用的时候，引用的变量必须有{}
+			不用{}的时候，定义模块的时候要使用export default
+		-->
+		<!--import特点：
+			1.import 可以是相对路径也可以是绝对路径
+			2.import模块只会导入一次，无论引入多少次
+			3.import './module/1.js'; 相当于引入文件
+			4.有提升效果，import会自动提升到顶部，首先执行
+			5.导出去模块的内容，如果里面有定时器更改，外面也会改动
+			6.import()类似于node里面的require，可以动态引入，默认import不能写入if之类的里面
+			   返回值是promise对象
+			  import('./module/3.js').then(res => {
+				console.log(res.a + res.b); //17
+			  })
+			  优点：按需加载  可以写if中路径 也可以动态加载
+		-->
+		<script type="module">
+			//引入模块
+			/*import './module/1.js';
+			import 'https://code.jquery.com/jquery-3.3.1.js';*/
+			
+			/*import {a} from './module/1.js';
+			console.log(a);*/
+			
+			/*import {b,c,d} from './module/1.js';
+			console.log(b,c,d);*/
+			
+			/*import {banana,cup,doctor} from './module/1.js';
+			console.log(banana,cup,doctor);*/
+			
+			/*import cc,{ee,ss} from './module/1.js';
+			console.log(cc,ee,ss);  //12 111 2222*/
+			
+			import mod,{show,sum,a,b} from './module/2.js';
+			let p1 = new mod.Person('wxj');
+			console.log(p1.showName());
+			
+			show();
+			sum();
+			console.log(a,b);
+			
+			
+			import('./module/3.js').then(res => {
+				console.log(res.a + res.b); //17
+			})
+			
+			Promise.all([
+				import('./module/1.js'),
+				import('./module/2.js')
+			]).then(([mod1,mod2]) => {
+				console.log(mod1);
+				console.log(mod2);
+			})
+			
+			
+		</script>
+	</body>
+</html>

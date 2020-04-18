@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>weakSet</title>
+	</head>
+	<body>
+		<!--set和weakSet的区别：new Set([])存储数组  /  new WeakSet({})存储json -->
+		<!--new WeakSet({})初始往里面添加东西不可以，必须用add-->
+		<script>
+			let set = new Set(['apple','orange']);
+			set.forEach((item) => {
+				console.log(item);
+			})
+		</script>
+	</body>
+</html>

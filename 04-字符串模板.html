@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>字符串模板</title>
+	</head>
+	<body>
+		<ul id="ul1">
+			<!--<li>
+				<span>新闻标题：</span>
+				<span>阅读人数：</span>
+				<a href="#">详情</a>
+			</li>-->
+		</ul>
+		<script>
+			/*语法：`${变量名}`
+			 ``的优点是可以随意换行*/
+			/*let name = 'wxj';
+			let age = 18;
+			let str = '这个人的名字是'+ name +',年龄为'+ age +'岁';
+			console.log(str);
+			
+			//利用字符串模板不用拼接
+			let str1 = `这个人的名字是${name},年龄是${age}岁`;
+			console.log(str1);*/
+			
+			let data = [
+			    {title:'11111111111',read:100},
+			    {title:'2222222222222222222',read:677},
+			    {title:'3333333333333',read:89},
+			    {title:'444444444444444',read:5},
+			    {title:'5555555555555555',read:23},
+			    {title:'6666666666666666',read:103420},
+			    {title:'7777777777777777',read:55},
+			    {title:'8888888888888888',read:111},
+			    {title:'9999999999999999',read:20}
+			];
+			/*window.onload = function() {
+				//let ul = document.querySelector('#ul1');
+				let ul = document.getElementsByTagName('ul')[0];
+				//let ul = document.getElementById('ul1');
+				for (let i = 0; i <　data.length; i++) {
+					var oLi = document.createElement('li');
+					oLi.innerHTML = '<span>新闻标题：'+ data[i].title+'</span>'
+									+'<span>阅读人数：'+ data[i].read+'</span>'
+									+'<a href="#">详情</a>';
+				    ul.appendChild(oLi);
+				}
+			}*/
+			window.onload = function() {
+				//let ul = document.querySelector('#ul1');
+				let ul = document.getElementsByTagName('ul')[0];
+				//let ul = document.getElementById('ul1');
+				for (let i = 0; i <　data.length; i++) {
+					var oLi = document.createElement('li');
+					oLi.innerHTML = `<span>新闻标题：${data[i].title}</span>
+									<span>阅读人数：${data[i].read}</span>
+									<a href="#">详情</a>`;
+				    ul.appendChild(oLi);
+				}
+			}
+		</script>
+	</body>
+</html>

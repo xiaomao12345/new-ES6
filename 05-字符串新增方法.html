@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>字符串新增方法</title>
+	</head>
+	<body>
+		<script>
+			/*  1. str.includes(要找的东西) 字符串查找  返回true/false 判断浏览器*/
+			
+			/*let str = 'apple banana,orange';
+			console.log(str.indexOf('banana')); //6  indexof返回的是字符串的位置 没找到返回-1
+			console.log(str.includes('banana')); //true*/
+			
+			//判断浏览器
+			/*if(navigator.userAgent.includes('Chrome')){
+				alert('YES');
+			}else{
+				alert('NO');
+			}*/
+			
+			/*  2. str.startsWith(检测的东西) 检测字符串以什么开头  返回布尔值  检测地址*/
+			let str1 = 'https://study.163.com/course/courseMain.htm?courseId=1005974007';
+			let str2 = 'D:\Program Files (x86)';
+			console.log(str1.startsWith('https')); //true
+			console.log(str2.startsWith('https'));  //false
+			
+			/*  3. str.endsWith(检测的东西) 检测字符串以什么结尾  返回布尔值   检测图片，脚本等*/
+			let str3 = 'hello word';
+			console.log(str3.endsWith('d'));  //false
+			
+			/*  4.str.repeat() 重复字符串   返回一个新的字符串，表示将原字符串重复n次*/
+			let str4 = '牧马人';
+			console.log(str4.repeat(3));  //重复三次
+			
+			/*  5. padStart()前填充     padEnd()后填充   
+			 * 传递两个参数  第一个参数用来指定总字符串的最小长度，第二个参数为要填充的字符串
+			 * 如果省略了最后一个参数，则会用空格来填充*/
+			let str5 = 'a';
+			let str6 = 'xxxxx';
+			console.log(str5.padStart(str5.length+str6.length,str6));  //xxxxxa
+			console.log(str5.padEnd(str5.length+str6.length,str6));    //axxxxx
+		</script>
+	</body>
+</html>

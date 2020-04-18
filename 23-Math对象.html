@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>对象Math</title>
+	</head>
+	<body>
+		<!--Math.trunc():截取，只会保留整数部分-->
+		<!--Math.sign():判断一个数是正数还是负数还是0 负数返回-1,0返回0,正数返回1-->
+		<!--Math.cbrt():开立方-->
+		<script>
+			console.log(Math.abs(-2));  //绝对值
+			console.log(Math.sqrt(4));  //开方
+			console.log(Math.trunc(4.222)); //4
+			console.log(Math.sign(-4));  //-1
+			console.log(Math.sign(4));  //1
+			console.log(Math.sign(0));  //0
+			console.log(Math.sign(-0));  //-0
+			console.log(Math.sign('aaaaaaaaaa'));  //NaN
+			console.log(Math.cbrt(27));  //3
+		</script>
+	</body>
+</html>

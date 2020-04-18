@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>类的继承</title>
+		<style>
+			.box{
+				width: 100px;
+				height: 100px;
+				background-color: red;
+				position: absolute;
+				top: 0;
+			}
+			.left{
+				left:0;
+			}
+			.right{
+				right: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="div1" class="box left">DIV1</div>
+		<div id="div2" class="box right">DIV2</div>
+		<script id="Es5之前" type="text/html">
+			//父类
+			function Person(name){
+				this.name = name;
+			}
+			Person.prototype.showName = function(){
+				return `名字是:${this.name}`;
+			};
+			
+			//子类
+			function Student(name,skill) {
+				Person.call(this,name);//继承属性
+				
+				this.skill = skill;
+			}
+			Student.prototype = new Person();//继承方法
+			//调用
+			let stu1 = new Student('wxj','逃学');
+			console.log(stu1.name); //wxj
+			console.log(stu1.skill); //wxj
+			console.log(stu1.showName()); //名字是wxj
+		</script>
+		<script id="ES6继承" type="text/html">
+			//父类
+			class Person{
+				constructor(name) {
+					this.name = name;
+				}
+				showName(){
+					console.log('父类里的showName');
+					return `名字是:${this.name}`;
+				}
+			}
+			//子类
+			class Student extends Person{
+				constructor(name,skill) {
+					super(name);
+					this.skill = skill;
+				}
+				showName(){
+					//防止子类覆盖父级的方法
+					super.showName();//父级的方法执行
+					
+					//TODO 做子类的事情
+					console.log('子类里的showName');
+				}
+				showSkill(){
+					return `哥们的技能是:${this.skill}`;
+				}
+			}
+			
+			//调用 
+			let stu1 = new Student('Strive','逃学');
+			console.log(stu1.showName());
+			console.log(stu1.showSkill());
+		</script>
+		<script id="案例-拖拽">
+			//普通拖拽 父类
+			class Drag{
+				constructor(id){
+					this.oDiv = document.querySelector(id);
+					this.disX = 0;
+					this.disY = 0;
+					this.init();
+				}
+				init(){
+					this.oDiv.onmousedown = function(ev){
+						this.disX = ev.clientX - this.oDiv.offsetLeft;
+						this.disY = ev.clientY - this.oDiv.offsetTop;
+						document.onmousemove = this.fnMove.bind(this);
+						document.onmouseup = this.fnUp.bind(this);
+						return false;
+					}.bind(this);
+				}
+				fnMove(ev){
+					this.oDiv.style.left = ev.clientX - this.disX + 'px';
+					this.oDiv.style.top= ev.clientY - this.disY + 'px';
+				}
+				fnUp(){
+					document.onmousemove = null;
+					document.onmouseup = null;
+				}
+			}
+			//子类  限制范围
+			class LimitDrag extends Drag{
+				fnMove(ev){
+					super.fnMove(ev);
+					
+					//限制范围
+					if (this.oDiv.offsetLeft <= 0) {
+						this.oDiv.style.left = 0;
+					}
+					if (this.oDiv.offsetTop <= 0) {
+						this.oDiv.style.top = 0;
+					}
+				}
+			}
+			//调用
+			new Drag('#div1');
+			new LimitDrag('#div2');
+		</script>
+	</body>
+</html>

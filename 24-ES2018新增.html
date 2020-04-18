@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>ES2018新增内容</title>
+	</head>
+	<body>
+		<!--1.命名捕获
+			语法：(?<名字>)
+			反向引用命名捕获：
+			    反向引用：\1  \2  $1  $2
+			    语法：\k<名字>
+			替换:replace  $<名字>
+		    2.s:dotAll模式
+		      之前'.'在正则表达式里面表示匹配任何东西，但是不包括/n等行终止符，在后面加上s就可以匹配到/n了
+		    3.标签函数
+		    function fn(){
+		    	
+		    }
+		          调用：fn`aaaa`;
+		-->
+		<script id="命名捕获" type="text/html">
+			//原始
+			/*let str = '2020-04-18';
+			let reg = /(\d{4})-(\d{2})-(\d{2})/;
+			console.log(str.match(reg)); //返回一个数组
+			let dateArr = str.match(reg);
+			let year = dateArr[1];
+			let month = dateArr[2];
+			let day = dateArr[3];
+			console.log(year,month,day);*/
+			
+			//ES2018 命名捕获
+			let str = '2020-04-18';
+			let reg = /(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})/;
+			console.log(str.match(reg).groups); //{year: "2020", month: "04", day: "18"}
+			let {year,month,day} = str.match(reg).groups;
+			console.log(year,month,day);  //2020 04 18
+		</script>
+		<script id="反向命名捕获" type="text/html">
+			let reg = /^(?<wxj>welcome)-\k<wxj>$/;
+			let reg1 = /^(welcome)-(welcome)$/;
+			let reg2 = /^(?<wxj>welcome)-\k<wxj>-\1$/;
+			let str = 'a-a';
+			let str1 = 'wxj-wxj';
+			let str2 = 'welcome-welcome';
+			let str3 = 'welcome-welcome-welcome';
+			console.log(reg.test(str)); //false
+			console.log(reg.test(str1));//false
+			console.log(reg.test(str2));//true
+			console.log(reg1.test(str2)); //true
+			console.log(reg2.test(str3)); //true
+		</script>
+		<script id="替换" type="text/html">
+			let str = '2020-04-18';
+			let reg = /(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})/;
+			/*str = str.replace(reg,'$<year>/$<month>/$<day>');
+			console.log(str); //2020/04/18*/
+			
+			/*str1 = str.replace(reg,'$<day>/$<month>/$<year>');
+			console.log(str1);  //18/04/2020*/
+			str = str.replace(reg, (...arg) => {
+				console.log(arg);//["2020-04-18", "2020", "04", "18", 0, "2020-04-18", {…}]
+				let {year,month,day} = arg[arg.length - 1];
+				return `${day}/${month}/${year}`;
+			}) 
+			console.log(str);//18/04/2020
+		</script>
+		<script id="dolAll模式" type="text/html">
+			let reg = /^\w+.\w+$/;
+			let reg1 = /^\w+.\w+$/s; //加上s后就表示为dolAll模式了
+			let str = 'welcome@welcome';
+			console.log(reg.test(str));  //true
+			let str1 = 'welcome\nwelcome';
+			console.log(reg.test(str1)); //false
+			console.log(reg1.test(str1)); //true
+		</script>
+		<script id="标签函数">
+			function fn(args) {
+				console.log(args);
+				
+				return args[0].toUpperCase();  //WELCOME
+			}
+			console.log(fn `welcome`);//["welcome", raw: Array(1)]
+		</script>
+	</body>
+</html>

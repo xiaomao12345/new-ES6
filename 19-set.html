@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>set数据结构</title>
+	</head>
+	<body>
+		<!--set数据结构：类似于数组，但不能有重复值-->
+		<!--用法：new Set([])-->
+		<!--set.add('添加的内容')添加内容-->
+		<!--set.delete('删除的内容')删除内容-->
+		<!--set.has()检测是否存在某一个值，返回布尔值-->
+		<!--set有size属性，查看个数-->
+		<!--set.clear():清空所有内容-->
+		<!--可以用for..of..循环-->
+		<!--set用处：
+			1.数组去重
+			2.使用map(),filter()方法
+		-->
+		<!--可以向set里面添加json-->
+		<!--set和weakSet的区别：new Set([])存储数组  /  new WeakSet({})存储json -->
+		<!--new WeakSet({})初始往里面添加东西不可以，必须用add WeakSet没有size没有clear有has，delete -->
+		<script id="set方法和属性" type="text/html">
+			let setArr = new Set(['a','b','c']);
+			//console.log(setArr instanceof Array); //类似于数组有长度，但是不是数组
+			console.log(setArr); //Set(3) {"a", "b", "c"}
+			
+			//set不能有重复值
+			let setArray = new Set(['a','b','c','a']);
+			console.log(setArray); //Set(3) {"a", "b", "c"}
+			
+			//set.add添加
+			setArray.add('f').add('g').add('r');
+			console.log(setArray);
+			
+			//添加json
+			let json = {
+				a:1,
+				b:2
+			}
+			let json1 = {
+				c:3,
+				d:4
+			}
+			setArr.add(json).add(json1);
+			console.log(setArr);
+			//set.delete删除
+			setArray.delete('a');
+			console.log(setArray);
+			
+			//set.has()
+			console.log(setArray.has('b'));//true
+			
+			//set.size
+			console.log(setArray.size);
+			
+			//set.clear全部清空
+			setArray.clear();
+			console.log(setArray);
+		</script>
+		<script id="for..of..循环" type="text/html">
+			let setArr = new Set(['a','b','c','a']);
+			for(let val of setArr.values()) {
+				console.log(val);
+			}
+			for(let key of setArr.keys()) {
+				console.log(key);
+			}
+			for(let item of setArr.entries()) {
+				console.log(item);
+			}
+			for(let [key,val] of setArr.entries()) {
+				console.log(key,val);
+			}
+		</script>
+		<script id="forEach()" type="text/html">
+			let setArr = new Set(['a','b','c','a']);
+			setArr.forEach((value,index) => {
+				console.log(value,index);
+			})
+		</script>
+		<script id="set数组去重" type="text/html">
+			let arr = [1,2,3,2,4,5,3,6,4,6,2,3,6,4,9,7];
+			/*let set = new Set(arr);
+			console.log(set);*/
+			let newArr = [...new Set(arr)];
+			console.log(newArr);//[1, 2, 3, 4, 5, 6, 9, 7]
+		</script>
+		<script id="map()" type="text/html">
+			//循环的方法
+			/*let set = new Set([1,2,3]);
+			let set2 = new Set();
+			for(let value of set.values()) {
+				set2.add(value * 2);
+			}
+			console.log(set2); //Set(3) {2, 4, 6}*/
+			
+			//map()方法：映射
+			let set = new Set([1,2,3]);
+			set = new Set([...set].map(val =>val*2))
+			console.log(set);//Set(3) {2, 4, 6}
+		</script>
+		<script id="filter" type="text/html">
+			//filter过滤
+			let set = new Set([1,2,3,6,7,4,5,8]);
+			set = new Set([...set].filter(val =>val%2 == 0))
+			console.log(set);//Set(3) {2, 4, 6,8}
+		</script>
+		<script id="set里添加json">
+			let setArr = new Set();
+			//添加json
+			let json = {
+				a:1,
+				b:2
+			}
+			let json1 = {
+				c:3,
+				d:4
+			}
+			setArr.add(json).add(json1);
+			console.log(setArr);
+			setArr.forEach((item) => {
+				console.log(item);
+				console.log(item.a);
+			})
+		</script>
+	</body>
+</html>

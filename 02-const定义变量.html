@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>const定义变量</title>
+	</head>
+	<body>
+		<script>
+			/*const定义变量和let一样，但是const定义完变量之后不可以修改
+			 const定义完必须直接赋值，不能后赋值 ，不能修改
+			 const没有预解析，没有变量提升*/
+			
+			/*let a = 10;
+			a = 2;
+			console.log(a);  //2*/
+			
+			/*const b = 100;
+			b = 200;
+			console.log(b);  //报错Assignment to constant variable.不可更改*/
+			
+			/*let d;
+			d = 2222;
+			console.log(d);  //2222*/
+			
+			/*const c;
+			c = 5;
+			console.log(c);  //报错*/
+			
+			/*const f = 9;
+			function fn() {
+				console.log(f); //报错  TDZ开始  暂时性死区
+				const f =5;  //TDZ结束，暂时性死区
+			}
+			fn();*/
+			
+			/*const arr = ['apple','orange'];
+			arr.push('banana');
+			console.log(arr);  //["apple", "orange", "banana"]*/
+			
+			//object.freeze方法，对象冻结
+			const arr = Object.freeze(['apple','orange']);
+			arr.push('banana');
+			console.log(arr); 
+		</script>
+	</body>
+</html>

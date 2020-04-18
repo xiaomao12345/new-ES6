@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Proxy</title>
+	</head>
+	<body>
+		<!--代理   扩展(增强)对象,方法的一些功能
+			作用：比如vue中拦截  预警  上报   扩展功能  统计  增强对象
+			Proxy是一种设计模式，代理模式
+		-->
+		<!--语法：new Proxy(target,handler)
+			let obj = new Proxy(被代理的对象，对代理的对象做什么操作)
+		-->
+		<!--Reflect:反射
+			Reflect.apply(调用的函数，this指向，参数数组)
+		-->
+		<script type="text/html" id="get()">
+			let obj = {
+				name:'strive'
+			}
+			let newObj = new Proxy(obj,{
+				get(target,property){
+					console.log(target,property);
+					
+					console.log(`您访问了${property}属性`);
+					//TODO
+					return target[property];
+				}
+			})
+			//newObj.aaaa;
+			console.log(newObj.name);
+		</script>
+		<script id="示例" type="text/html">
+			//访问对象的某一个属性，默认不存在的时候给一个undefined，希望如果不存在该属性显示报错或者警告
+			let obj = {
+				name:'strive'
+			}
+			let newObj = new Proxy(obj,{
+				get(target,property){
+					if(property in target){
+						return target[property];
+					}else{
+						//throw new ReferenceError(`${property}属性不在此对象上`);  //报错
+						console.warn(`${property}属性不在此对象上`); //警告
+						return '^_^';  //若果没有return值则返回undefined
+					}
+				}
+			})
+			//newObj.aaaa;
+			console.log(newObj.name);
+			console.log(newObj.age);
+		</script>
+		<script id="set()" type="text/html">
+			let obj = new Proxy({},{
+				set(target,prop,value) {
+					if (prop == 'age') {
+						if(!Number.isInteger(value)){
+							throw new TypeError('年龄必须为整数');
+						}
+						if(value > 200){
+							throw new RangeError('年龄超标了，必须小于200岁');
+						}
+					} 
+					target[prop] = value;
+				}
+			});
+			obj.a = 123;
+			obj.name = 'strive';
+			
+			console.log(obj);
+			obj.age = 266;
+		</script>
+		<script id="delete" type="text/html">
+			let json = {
+				a:1,
+				b:2
+			};
+			let newJson = new Proxy(json,{
+				deleteProperty(target,property){
+					console.log(`您要删除${property}属性`);
+					delete target[property];
+				}
+			});
+			delete newJson.a;
+			console.log(newJson);
+		</script>
+		<script id="has">
+			let json = {
+				a:1,
+				b:2
+			};
+			let newJson = new Proxy(json,{
+				has(target,property){
+					console.log('判断是否存在has方法');
+					return property in target;
+				}
+			});
+			console.log('a' in newJson);
+			
+			console.log(newJson);
+		</script>
+	</body>
+</html>

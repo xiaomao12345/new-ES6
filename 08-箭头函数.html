@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>箭头函数</title>
+	</head>
+	<body>
+		<script>
+			/*语法  () => {  语句    } */
+			/*注意事项：
+			 1.this的问题：当时用箭头函数的时候，this出现在哪个作用域里面，就指向哪
+			 2.arguments的问题：箭头函数里面不存在arguments，用...
+			 3.构造函数的问题：箭头函数不能当构造函数
+			*/
+			
+			
+			
+			/*正常写法*/
+			/*function show() {
+				return 1;
+			}
+			console.log(show());  //1*/
+			
+			/*箭头函数*/
+			let show1 = () => 1;
+			console.log(show1());  //1
+			
+			/*//用var定义一个全局变量属于window，而let和const则不同
+			//var id = 10;
+			//let id = 10;  //当用let定义的时候，会返回undefined
+			let json = {
+				id:1,
+				show:function() {
+					setTimeout(function() {
+						alert(this.id);  //10       该函数被window调用，指向window
+					},2000);
+				}
+			}
+			json.show();*/
+			
+			/*var id = 10;
+			let json = {
+				id:1,
+				show:function() {
+					setTimeout(() => {
+						alert(this.id);  //1   指向json对象
+					},1000);
+				}
+			}
+			json.show();*/
+			
+			/*//this的指向问题
+			var obj = {
+				a:'red',
+				funt:function() {
+					console.log(this.a);
+				}
+			}
+			obj.funt();   //red  obj调用，指向obj
+			var fz = obj.funt;
+			fz();  //undefined  指向window*/
+			
+			
+			//构造函数
+//			function Foo() {
+//				this.name = 'abc';
+//			}
+//			var s = new Foo();
+//			console.log(s.name); //abc
+			
+			/*let Zn = () => {
+				this.name = 'abc';
+			}
+			var s = new Zn();
+			console.log(s.name); //Zn is not a constructor 不是一个构造函数*/
+			
+			function  ll(a,b,c,){
+				console.log(a,b,c);  //1 2 3后面多写了一个,不会报错(ES2017提出)
+			}
+			ll(1,2,3,); 
+		</script>
+	</body>
+</html>
